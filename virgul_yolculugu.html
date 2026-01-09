@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Virgülün Yolculuğu - NöroMatematik</title>
+    <style>
+        body { font-family: 'Comic Sans MS', sans-serif; text-align: center; background-color: #f0f8ff; }
+        .container { margin-top: 50px; }
+        .number-display { font-size: 80px; letter-spacing: 15px; margin: 20px; font-weight: bold; }
+        .comma { color: red; font-size: 100px; transition: all 1s ease; display: inline-block; }
+        .digit { color: #333; display: inline-block; transition: all 0.5s; }
+        .controls button { padding: 15px 30px; font-size: 20px; margin: 10px; cursor: pointer; border-radius: 10px; border: none; }
+        .btn-10 { background-color: #ffd700; } /* Dikkat çekici sarı */
+        .btn-reset { background-color: #ff6b6b; color: white; }
+        #explanation { font-size: 24px; color: #555; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dedektif Virgül İş Başında! 🕵️‍♂️</h1>
+        
+        <div id="display" class="number-display">
+            <span class="digit">1</span><span class="comma" id="virgul">,</span><span class="digit">2</span><span class="digit">5</span>
+        </div>
+
+        <div class="controls">
+            <button class="btn-10" onclick="multiply(10)">x 10 (1 Zıplama)</button>
+            <button class="btn-10" onclick="multiply(100)">x 100 (2 Zıplama)</button>
+            <button class="btn-10" onclick="multiply(1000)">x 1000 (3 Zıplama)</button>
+            <br>
+            <button class="btn-reset" onclick="resetNumber()">Geri Sar (Tersine Çevir)</button>
+        </div>
+
+        <div id="explanation">Başlangıç Sayısı: 1,25</div>
+    </div>
+
+    <script>
+        let currentVal = 1.25;
+
+        function multiply(factor) {
+            // Nörobilim: Önce sonucu tahmin et (Sayı Hissi)
+            let oldVal = currentVal;
+            currentVal = currentVal * factor;
+            
+            // Görseli Güncelle (Piaget: Korunum - Rakamlar aynı kalır mantığı)
+            // Not: Basitlik için burada direkt JS matematiği kullanıldı, 
+            // gerçekte string manipülasyonu ile '0' ekleme görselleştirilebilir.
+            
+            updateDisplay(currentVal);
+            
+            // Bilgiyi İşleme: Anlamlandırma mesajı
+            let steps = Math.log10(factor);
+            document.getElementById('explanation').innerText = 
+                `Sayı ${factor} kat büyüdü! Virgül ${steps} adım SAĞA kaçtı.`;
+        }
+
+        function resetNumber() {
+            // Piaget: Tersine Çevrilebilirlik (Reversibility)
+            currentVal = 1.25;
+            updateDisplay(currentVal);
+            document.getElementById('explanation').innerText = "Filmi geri sardık! Başlangıç: 1,25";
+        }
+
+        function updateDisplay(num) {
+            // Türk formatına çevir (nokta yerine virgül)
+            let formatted = num.toString().replace('.', ',');
+            // Virgülü renklendir (Algısal ayırt edilebilirlik)
+            let html = formatted.replace(',', '<span class="comma">,</span>');
+            document.getElementById('display').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
